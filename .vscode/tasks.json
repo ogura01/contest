@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "Build: g++",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/a.out"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Test: online-judge-tools test",
+      "command": "oj",
+      "args": [
+        "test",
+        "-d",
+        "${fileDirname}/tests"
+      ],
+      "options": {
+        "cwd": "${fileDirname}/../.."
+      },
+      "dependsOn": [
+        "Build: g++"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "Submit: atcoder-cli submit",
+      "command": "acc",
+      "args": [
+        "submit",
+        "${file}"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "dependsOn": [
+        "Test: online-judge-tools test"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
